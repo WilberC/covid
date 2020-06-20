@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://bootswatch.com/4/united/bootstrap.css">
+    <style>
+        .card-footer {
+            border-top: none !important;
+        }
+
+        .card-img-top {
+        }
+    </style>
     <title>{% block title %}COVID-19 | MIT CHALLENGE{% endblock %}</title>
     {% block styles %}
     {% endblock %}
@@ -15,19 +23,22 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="main-nav">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
-            </li>
-        </ul>
+        {% include 'layout/links.html' %}
     </div>
 </nav>
 <br>
-{% block body %}
-{% endblock %}
+<main style="padding: 20px;">
+    <div class="card">
+        <div class="card-header">
+            {% block card-title %}
+            {% endblock %}
+        </div>
+        <div class="card-body">
+            {% block card-body %}
+            {% endblock %}
+        </div>
+    </div>
+</main>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
