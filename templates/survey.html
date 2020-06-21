@@ -1,0 +1,152 @@
+{% extends 'layout/layout.html' %}
+
+{% block card-title %}
+    <h1>Take a quick survey and know if you have symptoms of covid or not</h1>
+    <span>( please allow us to get your location to help you as much as we can )</span>
+{% endblock %}
+
+{% block card-body %}
+    <br>
+    <form method="post">
+        {% csrf_token %}
+        <ul class="list-group">
+            <li class="list-group-item">
+                <h4>Give us information about you</h4>
+                <span>( all of these information will be use just for take care of your health and act as quickly as we can to help you and your family )</span>
+                <hr>
+                <div class="form-group">
+                    <label for="name">Complete Name</label>
+                    <input type="text" class="form-control" name="name" id="name">
+                </div>
+                <div class="form-group">
+                    <label for="identity_number">Identity Number</label>
+                    <input type="text" class="form-control" name="identity_number" id="identity_number">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="latitude" id="latitude">
+                    <small class="form-text text-muted">(this is the latitude of gps, this will be hidden but we will
+                        use it
+                        to geolocate the persons who submit the survey)</small>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="longitude" id="longitude">
+                    <small class="form-text text-muted">(this is the latitude of gps, this will be hidden but we will
+                        use it
+                        to geolocate the persons who submit the survey)</small>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <h4>Tell us about your interaction with other people</h4>
+                <label>
+                    <input type="checkbox" value="1" name="q-1"> I have been in contact with persons that are at
+                    least 2 meters of distance or less
+                </label><br>
+                <label>
+                    <input type="checkbox" value="2" name="q-1"> I had contact with a person that has covid19 for more
+                    than 15 minutes
+                </label><br>
+                <label>
+                    <input type="checkbox" value="3" name="q-1"> I had direct contact with the secretion of a probably
+                    or
+                    confirmed of a covid19 case
+                </label><br>
+            </li>
+            <li class="list-group-item">
+                <h4>In the last two weeks ...</h4>
+                <label>
+                    <input type="checkbox" value="1" name="q-2"> I had a stretch contact with a confirmed case of
+                    covid19
+                </label><br>
+                <label>
+                    <input type="checkbox" value="2" name="q-2"> I was or travel to areas that has cases of covid19 and
+                    I
+                    have symptoms
+                </label><br>
+                <label>
+                    <input type="checkbox" value="3" name="q-2"> None of the above
+                </label><br>
+            </li>
+            <li class="list-group-item">
+                <h4>I work in :</h4>
+                <label>
+                    <input type="checkbox" value="1" name="q-3"> the medical sector or something related to it and I had
+                    stretch contact with confirmed cases of covid19
+                </label><br>
+                <label>
+                    <input type="checkbox" value="2" name="q-3"> Any of the following professions: firefighters, police,
+                    indigenous guard, taxi driver, transportation, general services or food.
+                </label><br>
+                <label>
+                    <input type="checkbox" value="3" name="q-3"> None of the above
+                </label><br>
+            </li>
+            <li class="list-group-item">
+                <h4>Do I have one of the next symptoms?</h4>
+                <label>
+                    <input type="checkbox" value="1" name="q-4"> Fever greater than or equal to 38 ° C
+                </label><br>
+                <label>
+                    <input type="checkbox" value="2" name="q-4"> Tiredness or fatigue
+                </label><br>
+                <label>
+                    <input type="checkbox" value="3" name="q-4"> Dry cough
+                </label><br>
+                <label>
+                    <input type="checkbox" value="4" name="q-4"> None of the above
+                </label><br>
+            </li>
+            <li class="list-group-item">
+                <h4>Do you have any of these symptoms?</h4>
+                <label>
+                    <input type="checkbox" value="1" name="q-5"> Breathing difficulty
+                </label><br>
+                <label>
+                    <input type="checkbox" value="2" name="q-5"> Sore throat
+                </label><br>
+                <label>
+                    <input type="checkbox" value="3" name="q-5"> None of the above
+                </label><br>
+            </li>
+            <li class="list-group-item">
+                <h4>Do you have any of these symptoms?</h4>
+                <label>
+                    <input type="checkbox" value="1" name="q-6"> Body pain
+                </label><br>
+                <label>
+                    <input type="checkbox" value="2" name="q-6"> Headache
+                </label><br>
+                <label>
+                    <input type="checkbox" value="3" name="q-6"> Nasal congestion
+                </label><br>
+                <label>
+                    <input type="checkbox" value="4" name="q-6"> Mucus (runny nose, runny nose)
+                </label><br>
+                <label>
+                    <input type="checkbox" value="5" name="q-6"> Nausea, vomiting, or diarrhea
+                </label><br>
+                <label>
+                    <input type="checkbox" value="6" name="q-6"> None of the above
+                </label><br>
+                <br>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </li>
+        </ul>
+    </form>
+{% endblock %}
+
+{% block script %}
+    <script>
+        function getLatitudeLongitude(position) {
+            document.getElementById('latitude').value = position.coords.latitude
+            document.getElementById('longitude').value = position.coords.longitude
+        }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(getLatitudeLongitude);
+            }
+        }
+
+        getLocation()
+    </script>
+{% endblock %}

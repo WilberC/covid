@@ -1,0 +1,35 @@
+{% extends 'layout/layout.html' %}
+
+{% block card-title %}
+    <h1>Your result is :</h1>
+{% endblock %}
+
+{% block card-body %}
+    <h3>Hi {{ person.name }}</h3>
+    <span>This are all the surveys that you have been doing and also the days when you did it</span>
+    <br>
+    <br>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Result</th>
+            <th scope="col">Day of Survey</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for rpt in geolocation %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td style="color: #FFFFFF;"
+                    class="{% if rpt.result == 2 %}bg-info{% elif rpt.result == 3 %}bg-warning{% elif rpt.result == 4 %}bg-danger{% else %}bg-success{% endif %}"
+                >{{ rpt.get_result_display }}</td>
+                <td>{{ rpt.creation_date }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block script %}
+{% endblock %}
